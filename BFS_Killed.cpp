@@ -55,13 +55,13 @@ public:
         string result = "";
         for (int i = 0; i < actionHistoryVector.size(); i++) {
             result += actionHistoryVector[i] + "\n";
-            for (int j = 0; j <= 2; j++) {
+            /*for (int j = 0; j <= 2; j++) {
                 for (int k = 0; k <= 2; k++) {
                     result += visitedStates[i][j][k] + " ";
                 }
                 result += "\n";
             }
-            result += "\n";
+            result += "\n";*/
         }
         stringstream ss;
         ss << (actionHistoryVector.size() - 1);
@@ -193,15 +193,82 @@ int main() {
     initial[2][1] = "3";
     initial[2][2] = "1";
 
-    initial[0][0] = "4";
-    initial[0][1] = "1";
+    // 2 steps
+    initial[0][0] = "1";
+    initial[0][1] = "2";
     initial[0][2] = "0";
     initial[1][0] = "3";
-    initial[1][1] = "7";
-    initial[1][2] = "6";
-    initial[2][0] = "8";
-    initial[2][1] = "5";
-    initial[2][2] = "2";
+    initial[1][1] = "4";
+    initial[1][2] = "5";
+    initial[2][0] = "6";
+    initial[2][1] = "7";
+    initial[2][2] = "8";
+
+    // 4 steps
+    // initial[0][0] = "1";
+    // initial[0][1] = "2";
+    // initial[0][2] = "5";
+    // initial[1][0] = "3";
+    // initial[1][1] = "4";
+    // initial[1][2] = "8";
+    // initial[2][0] = "6";
+    // initial[2][1] = "7";
+    // initial[2][2] = "0";
+
+    // 6 steps
+    // initial[0][0] = "1";
+    // initial[0][1] = "2";
+    // initial[0][2] = "5";
+    // initial[1][0] = "3";
+    // initial[1][1] = "4";
+    // initial[1][2] = "8";
+    // initial[2][0] = "0";
+    // initial[2][1] = "6";
+    // initial[2][2] = "7";
+
+    // 8 steps
+    // initial[0][0] = "1";
+    // initial[0][1] = "2";
+    // initial[0][2] = "5";
+    // initial[1][0] = "4";
+    // initial[1][1] = "0";
+    // initial[1][2] = "8";
+    // initial[2][0] = "3";
+    // initial[2][1] = "6";
+    // initial[2][2] = "7";
+
+    // 10 steps
+    // initial[0][0] = "0";
+    // initial[0][1] = "1";
+    // initial[0][2] = "5";
+    // initial[1][0] = "4";
+    // initial[1][1] = "2";
+    // initial[1][2] = "8";
+    // initial[2][0] = "3";
+    // initial[2][1] = "6";
+    // initial[2][2] = "7";
+
+    // 12 steps
+    initial[0][0] = "4";
+    initial[0][1] = "1";
+    initial[0][2] = "5";
+    initial[1][0] = "3";
+    initial[1][1] = "2";
+    initial[1][2] = "8";
+    initial[2][0] = "0";
+    initial[2][1] = "6";
+    initial[2][2] = "7";
+
+    // 18 steps
+    // initial[0][0] = "4";
+    // initial[0][1] = "1";
+    // initial[0][2] = "0";
+    // initial[1][0] = "3";
+    // initial[1][1] = "7";
+    // initial[1][2] = "6";
+    // initial[2][0] = "8";
+    // initial[2][1] = "5";
+    // initial[2][2] = "2";
 
     vector< vector< vector<string> > > initialStateHistory;
     initialStateHistory.push_back(initial);
@@ -234,6 +301,7 @@ int main() {
         vector<State> nextPossibleStates = currentState.getNextPossibleStates();
         for (int i = 0; i < nextPossibleStates.size(); i++) {
             stateQueue.push(nextPossibleStates[i]);
+            cout << stateQueue.size() << endl;
         }
     }
     clock_t end = clock();
