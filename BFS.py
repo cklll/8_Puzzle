@@ -1,8 +1,6 @@
 import queue
 import timeit
 
-
-
 def swap_char(s, i, j):
     l = list(s)
     l[i], l[j] = l[j], l[i]

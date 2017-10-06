@@ -61,13 +61,12 @@ def solve_IDS(initial_state, goal_state):
     while True:
         current_depth += 1
         print(current_depth)
+        visited = {initial_state: 0}
         stateStack = Stack()
-        stateStack.push({'state': initial_state, 'visited': set([initial_state]), 'space_action': ''})
+        stateStack.push({'state': initial_state, 'space_action': ''})
 
         while not stateStack.isEmpty():
-
             current_state = stateStack.pop()
-
             if current_state.get('state') == goal_state:
                 print_result(initial_state, current_state.get('space_action'))
                 return
@@ -77,41 +76,34 @@ def solve_IDS(initial_state, goal_state):
 
             empty_index = current_state.get('state').index('0')
 
-            # space moves right
-            if not (empty_index == 2 or empty_index == 5 or empty_index == 8):
-                next_state = swap_char(current_state.get('state'), empty_index, empty_index + 1)
-                
-                new_visited = set(current_state.get('visited'))
-                new_visited.add(next_state)
-                if next_state not in current_state.get('visited'):
-                    stateStack.push({'state': next_state, 'space_action': current_state.get('space_action') + 'R', 'visited': new_visited})
-
-            # space moves left
-            if not (empty_index == 0 or empty_index == 3 or empty_index == 6):
-                next_state = swap_char(current_state.get('state'), empty_index, empty_index - 1)
-                new_visited = set(current_state.get('visited'))
-                new_visited.add(next_state)
-                if next_state not in current_state.get('visited'):
-                    current_state.get('visited').add(next_state)
-                    stateStack.push({'state': next_state, 'space_action': current_state.get('space_action') + 'L', 'visited': new_visited})
 
             # space moves up
             if not (empty_index == 0 or empty_index == 1 or empty_index == 2):
                 next_state = swap_char(current_state.get('state'), empty_index, empty_index - 3)
-                new_visited = set(current_state.get('visited'))
-                new_visited.add(next_state)
-                if next_state not in current_state.get('visited'):
-                    current_state.get('visited').add(next_state)
-                    stateStack.push({'state': next_state, 'space_action': current_state.get('space_action') + 'U', 'visited': new_visited})
+                if (next_state not in visited) or (visited[next_state] > len(current_state.get('space_action')) + 1):
+                    visited[next_state] = len(current_state.get('space_action')) + 1
+                    stateStack.push({'state': next_state, 'space_action': current_state.get('space_action') + 'U'})
+
+            # space moves left
+            if not (empty_index == 0 or empty_index == 3 or empty_index == 6):
+                next_state = swap_char(current_state.get('state'), empty_index, empty_index - 1)
+                if (next_state not in visited) or (visited[next_state] > len(current_state.get('space_action')) + 1):
+                    visited[next_state] = len(current_state.get('space_action')) + 1
+                    stateStack.push({'state': next_state, 'space_action': current_state.get('space_action') + 'L'})
             
             # space moves down
             if not (empty_index == 6 or empty_index == 7 or empty_index == 8):
                 next_state = swap_char(current_state.get('state'), empty_index, empty_index + 3)
-                new_visited = set(current_state.get('visited'))
-                new_visited.add(next_state)
-                if next_state not in current_state.get('visited'):
-                    current_state.get('visited').add(next_state)
-                    stateStack.push({'state': next_state, 'space_action': current_state.get('space_action') + 'D', 'visited': new_visited})
+                if (next_state not in visited) or (visited[next_state] > len(current_state.get('space_action')) + 1):
+                    visited[next_state] = len(current_state.get('space_action')) + 1
+                    stateStack.push({'state': next_state, 'space_action': current_state.get('space_action') + 'D'})
+
+            # space moves right
+            if not (empty_index == 2 or empty_index == 5 or empty_index == 8):
+                next_state = swap_char(current_state.get('state'), empty_index, empty_index + 1)
+                if (next_state not in visited) or (visited[next_state] > len(current_state.get('space_action')) + 1):
+                    visited[next_state] = len(current_state.get('space_action')) + 1
+                    stateStack.push({'state': next_state, 'space_action': current_state.get('space_action') + 'R'})
 
 
 
