@@ -60,7 +60,7 @@ def solve_IDS(initial_state, goal_state):
     current_depth = -1
     while True:
         current_depth += 1
-        print(current_depth)
+        print("Current search depth: {0}".format(current_depth))
         visited = {initial_state: 0}
         stateStack = Stack()
         stateStack.push({'state': initial_state, 'space_action': ''})
